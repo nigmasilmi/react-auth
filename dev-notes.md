@@ -12,6 +12,6 @@ Includes dev notes
 
 [Firebase documentation on the matter](https://firebase.google.com/docs/reference/rest/auth)
 
-### subtitle
+### Navigation Guards
 
-### subtitle
+- Mechanism to protect access to routes based on authentication

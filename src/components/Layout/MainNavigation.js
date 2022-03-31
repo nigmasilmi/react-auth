@@ -1,31 +1,39 @@
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import AuthContext from '../../store/auth-context';
 
 import classes from './MainNavigation.module.css';
 
-const links = {
-  loggedIn: (
-    <li>
-      <button>Logout</button>
-    </li>
-  ),
-  notLoggedIn: (
-    <li>
-      <Link to="auth">Login</Link>
-    </li>
-  ),
-  profile: (
-    <li>
-      <Link to="/profile">Profile</Link>
-    </li>
-  ),
-};
-
 const MainNavigation = () => {
+  const history = useHistory();
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
   console.log(isLoggedIn, 'está logueado');
+
+  const logoutHandler = () => {
+    authCtx.logout();
+    history.replace('/auth');
+  };
+
+  const links = {
+    loggedIn: (
+      <li>
+        <button onClick={logoutHandler}>Logout</button>
+      </li>
+    ),
+    notLoggedIn: (
+      <li>
+        <Link to="auth">Login</Link>
+      </li>
+    ),
+    profile: (
+      <li>
+        <Link to="/profile">Profile</Link>
+      </li>
+    ),
+  };
+
   return (
     <header className={classes.header}>
       <Link to="/">
