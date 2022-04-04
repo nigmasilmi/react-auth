@@ -61,7 +61,13 @@ const AuthForm = () => {
         // here comes sign up or sign in and for both we need to check the token
         // este es el punto de comunicación front back "tiene permiso back? responde, toma el control el front"
         if (data.idToken) {
-          authCtx.login(data.idToken);
+          // converting miliseconds into a corresponding timestamp in the future
+          const milisecondsLeft = parseInt(data.expiresIn) * 1000;
+          // const milisecondsLeft = 3000;
+          const expirationTime = new Date(
+            new Date().getTime() + milisecondsLeft
+          ).toISOString();
+          authCtx.login(data.idToken, expirationTime);
         }
         console.log(data);
         history.replace('/');
